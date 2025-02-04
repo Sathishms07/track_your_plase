@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+  </head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="static/images/frontImg.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Connect Through <br> Numbers and places</span>
+          <span class="text-2">Find what you need, where you are</span>
+        </div>
+        
+      </div>
+      <div class="back">
+        <img class="backImg" src="static/images/backImg.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Begin your journey <br> with a single connection</span>
+          <span class="text-2">Start exploring today</span>
+        </div>
+        
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <!-- Login Form -->
+          <div class="login-form">
+            <div class="title">Login</div>
+            <form action="/login" method="POST">
+              <div class="input-boxes">
+                  <div class="input-box">
+                      <i class="fas fa-envelope"></i>
+                      <input type="text" name="email" placeholder="Enter your email" required>
+                  </div>
+                  <div class="input-box">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" name="password" placeholder="Enter your password" required>
+                  </div>
+                  <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <select name="user_type" required>
+                      <option value="" disabled selected>Select user type</option>
+                      <option value="Parent">Parent</option>
+                      <option value="Worker">Worker</option>
+                    </select>
+                  </div>
+                  
+                  <div class="text"><a href="#">Forgot password?</a></div>
+                  <div class="button input-box">
+                      <input type="submit" value="Submit">
+                  </div>
+                  <div class="text sign-up-text">Don't have an account? <label for="flip">Sign up now</label></div>
+              </div>
+          </form>
+      </div>
+      
+      <!-- Signup Form -->
+        <div class="signup-form">
+          <div class="title">Signup</div>
+          <form action="/signup" method="POST">
+            <div class="input-boxes">
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <select name="user_type" required>
+                    <option value="" disabled selected>Select user type</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Worker">Worker</option>
+                  </select>
+                </div>
+                
+              
+                <div class="button input-box">
+                    <input type="submit" value="Submit">
+                </div>
+                <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

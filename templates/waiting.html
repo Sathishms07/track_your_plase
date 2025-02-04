@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Approval</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f3f3;
+        }
+        .loading-animation {
+            margin-top: 100px;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: blue;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Please Wait</h1>
+    <div class="loading-animation"></div>
+    <p class="message">Your request is being reviewed by the admin. Please wait...</p>
+
+    <script>
+        setInterval(() => {
+            fetch('/check-approval-status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.approved) {
+                        window.location.href = '/parent/dashboard';
+                    }
+                });
+        }, 5000);
+    </script>
+</body>
+</html>

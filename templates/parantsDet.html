@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Details Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #6a11cb, #2575fc, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container for the form */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            max-width: 90%;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-in-out;
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: inherit;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: inherit;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+            outline: none;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 12px;
+            top: 40px;
+            color: #6a11cb;
+            font-size: 18px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+           
+            Parent Details Form
+        </h1>
+        <form id="parent-details-form" action="/parent/details" method="POST">
+            <div class="form-group">
+                <label for="parent-email">Parent's Email:</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="parent-email" name="email" placeholder="Enter Parent's Email" required>
+            </div>
+            <div class="form-group">
+                <label for="student-name">Student's Name:</label>
+                <i class="fas fa-user"></i>
+                <input type="text" id="student-name" name="student_name" placeholder="Enter Student's Name" required>
+            </div>
+            <div class="form-group">
+                <label for="blood-group">Blood Group:</label>
+                <i class="fas fa-tint"></i>
+                <input type="text" id="blood-group" name="blood_group" placeholder="Enter Blood Group" required>
+            </div>
+            <div class="form-group">
+                <label for="relation">Relation:</label>
+                <i class="fas fa-users"></i>
+                <select id="relation" name="relation" required>
+                    <option value="" disabled selected>Select Relation</option>
+                    <option value="Father">Father</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Guardian">Guardian</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="parent-name">Parent's Name:</label>
+                <i class="fas fa-user-tie"></i>
+                <input type="text" id="parent-name" name="parent_name" placeholder="Enter Parent's Name" required>
+            </div>
+            <div class="form-group">
+                <label for="parent-mobile">Parent's Mobile Number:</label>
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="parent-mobile" name="parent_mobile" placeholder="Enter Mobile Number" required>
+            </div>
+            <div class="form-group">
+                <label for="secondary-mobile">Secondary Mobile Number:</label>
+                <i class="fas fa-phone-alt"></i>
+                <input type="tel" id="secondary-mobile" name="secondary_mobile" placeholder="Enter Secondary Mobile Number">
+            </div>
+            <button type="submit" class="submit-btn">Send Request</button>
+        </form>
+    </div>
+</body>
+</html>

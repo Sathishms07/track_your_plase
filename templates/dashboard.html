@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Phone Number Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        header nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        header nav ul li {
+            margin: 0 10px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        header nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #222;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar .user-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .user-profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .sidebar .user-profile h3 {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .menu {
+            list-style: none;
+        }
+
+        .sidebar .menu li {
+            margin: 15px 0;
+        }
+
+        .sidebar .menu li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar .menu li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar .menu li a:hover {
+            background: #4CAF50;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .track-section,
+        .map-section,
+        .activity-section,
+        .analytics-section,
+        .notifications-section,
+        .filters-section,
+        .current-location-section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .track-section h2,
+        .map-section h2,
+        .activity-section h2,
+        .analytics-section h2,
+        .notifications-section h2,
+        .filters-section h2,
+        .current-location-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .track-section .input-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .track-section input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .track-section .btn-primary {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .track-section .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .map-section iframe,
+        .current-location-section iframe {
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            height: 300px;
+        }
+
+        .activity-section .activity-list {
+            list-style: none;
+        }
+
+        .activity-section .activity-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dark-mode {
+            background: #121212;
+            color: #f3f3f3;
+        }
+
+        .dark-mode .track-section,
+        .dark-mode .map-section,
+        .dark-mode .activity-section,
+        .dark-mode .analytics-section,
+        .dark-mode .current-location-section {
+            background: #1e1e1e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" loading="lazy">
+            <h1>Phone Tracker</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <div class="user-profile">
+                <img src="{{ url_for('static', filename='images/user.png') }}" alt="User">
+                <h3>{{ user_name }}</h3>
+                <p>{{ user_email }}</p>
+            </div>
+            <ul class="menu">
+                <li><a href="#track"><i class="fas fa-map-marker-alt"></i> Track Number</a></li>
+                <li><a href="#map"><i class="fas fa-map"></i> Map View</a></li>
+                <li><a href="#activity"><i class="fas fa-history"></i> Recent Activity</a></li>
+                <li><a href="#analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="#notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="#filters"><i class="fas fa-filter"></i> Filters</a></li>
+                <li><a href="#current-location"><i class="fas fa-location-arrow"></i> Current Location</a></li>
+                <li><a href="#help"><i class="fas fa-question-circle"></i> Help</a></li>
+            </ul>
+        </aside>
+
+        <section class="main-content">
+            <div id="track" class="track-section">
+                <h2>Track a Phone Number</h2>
+                <form action="/track" method="POST">
+                    <div class="input-box">
+                        <input type="text" name="phone_number" placeholder="Enter phone number" required>
+                        <button type="submit" class="btn-primary">Track</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="map" class="map-section">
+                <h2>Location Map</h2>
+                <iframe 
+                    id="tracking-map"
+                    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDMI5E-4-tJTOoJHUT3fzLaMkJmlEdCfGY&center={{ latitude }},{{ longitude }}&zoom=14"
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <div id="activity" class="activity-section">
+                <h2>Recent Activity</h2>
+                <ul class="activity-list">
+                    <li><strong>123-456-7890</strong> tracked at 2025-01-22 10:30 AM</li>
+                    <li><strong>987-654-3210</strong> tracked at 2025-01-21 4:15 PM</li>
+                </ul>
+            </div>
+
+            <div id="analytics" class="analytics-section">
+                <h2>Analytics</h2>
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1; text-align: center; padding: 20px; background: #e8f5e9; border-radius: 10px;">
+                        <h3>Total Tracks</h3>
+                        <p style="font-size: 2rem; font-weight: bold;">{{ total_tracks }}</p>
+                    </div>
+                    <div style="flex: 1; text-align: center; padding: 20px; background: #e3f2fd; border-radius: 10px;">
+                        <h3>Unique Numbers</h3>
+                        <p style="font-size: 2rem; font-weight: bold;">{{ unique_numbers }}</p>
+                    </div>
+                    <div style="flex: 1; text-align: center; padding: 20px; background: #fff3e0; border-radius: 10px;">
+                        <h3>Most Common Location</h3>
+                        <p style="font-size: 1.5rem; font-weight: bold;">{{ common_location }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="notifications" class="notifications-section">
+                <h2>Notifications</h2>
+                <ul>
+                    {% for notification in notifications %}
+                    <li style="padding: 10px; margin-bottom: 10px; background: #f9f9f9; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <i class="fas fa-bell" style="color: #4CAF50; margin-right: 10px;"></i> {{ notification }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div id="filters" class="filters-section">
+                <h2>Advanced Search</h2>
+                <form action="/filter" method="GET">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label for="date-range">Date Range:</label>
+                        <input type="date" name="start_date" required>
+                        <span>to</span>
+                        <input type="date" name="end_date" required>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label for="location">Location:</label>
+                        <input type="text" name="location" placeholder="Enter location">
+                    </div>
+                    <button type="submit" style="margin-top: 10px; background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Apply Filters</button>
+                </form>
+            </div>
+
+            <div id="current-location" class="current-location-section">
+                <h2>Current Location Map</h2>
+                <p>Click the button below to view your current location on the map.</p>
+                <button onclick="getCurrentLocation()" class="btn-primary">Show Current Location</button>
+                <div id="current-location-map" style="width: 100%; height: 300px; border-radius: 10px;"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Phone Tracker. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let map;
+let marker;
+
+// Initialize the map
+function initMap(latitude = 0, longitude = 0, mapId = "tracking-map") {
+    const mapContainer = document.getElementById(mapId);
+    map = new google.maps.Map(mapContainer, {
+        center: { lat: latitude, lng: longitude },
+        zoom: 14,
+    });
+
+    // Add a marker for the given coordinates
+    marker = new google.maps.Marker({
+        position: { lat: latitude, lng: longitude },
+        map: map,
+    });
+}
+
+// Function to track entered phone number
+document.querySelector('.track-section form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let phoneNumber = document.querySelector('input[name="phone_number"]').value;
+
+    fetch('/track', {
+        method: 'POST',
+        body: new URLSearchParams({ phone_number: phoneNumber }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                initMap(data.latitude, data.longitude);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+// Function to get current location
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                initMap(latitude, longitude, "current-location-map");  // Update to current-location-map
+            },
+            (error) => {
+                alert('Error fetching location: ' + error.message);
+            }
+        );
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+}
+
+    </script>
+    
+    <!-- Load Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMI5E-4-tJTOoJHUT3fzLaMkJmlEdCfGY&callback=initMap" async defer></script>
+    
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Location Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn, .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn {
+            background: #555;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        header {
+            background: linear-gradient(90deg, #0077ff, #00d2ff);
+            padding: 20px 50px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        nav ul li a.btn {
+            margin-left: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #f0f0f0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 300px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #fff;
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact .btn-primary {
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        footer .socials {
+            margin-top: 10px;
+        }
+
+        footer .socials a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+            <h1>Location Tracker</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/index" class="btn">Login</a></li>
+                <li><a href="/index" class="btn">Sign Up</a></li>
+                <!-- Admin Login Button -->
+                <li><a href="/admin/login" class="btn">Admin Login</a></li> <!-- Added Admin Login Button -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Track Any Location Instantly</h1>
+            <p>Discover the power of real-time location tracking with ease and precision.</p>
+            <a href="/index" class="btn-primary">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Our Features</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Accurate Tracking</h3>
+                <p>Pinpoint location with state-of-the-art GPS technology.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Device Integration</h3>
+                <p>Works seamlessly with all modern smartphones.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure</h3>
+                <p>Your data is encrypted and protected.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We are a dedicated team of developers providing efficient location-tracking solutions. Our mission is to make location tracking simple, secure, and accessible for everyone.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions? Reach out to us anytime.</p>
+        <a href="mailto:sathishms068@gmail.com" class="btn-primary">Email Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Phone Number Location Tracker. All rights reserved.</p>
+        <div class="socials">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
